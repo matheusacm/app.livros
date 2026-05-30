@@ -25,10 +25,10 @@ function render(){
     case '#sobre':
         app.innerHTML = sobre;
         break;
-        case '#contato':
+        case `#contato`:
             app.innerHTML = contato;
             break;
-        case `#servicos`:
+        case '#servicos':
         app.innerHTML = servicos;
         break;
             default:

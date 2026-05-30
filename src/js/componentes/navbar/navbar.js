@@ -11,7 +11,7 @@ navbar.innerHTML = `<nav class="bem-navbar">
                     <a href="#sobre" class="bem-navbar__link">Sobre</a>
                 </li>
                  <li class="bem-navbar__item">
-                    <a href="#serviços" class="bem-navbar__link">Serviços</a>
+                    <a href="#serviços" class="bem-navbar__link">servicos</a>
                 </li>
             </ul>
         </nav>`
