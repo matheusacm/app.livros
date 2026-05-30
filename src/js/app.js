@@ -8,7 +8,7 @@ if(rota === `#;inicio`){
 }else if(rota === `#contato`){
     console.log("Pagina de contato")
 }else{
-    console;log("Pagina não encontrada")
+    console.log("Pagina não encontrada")
 }
 
 
