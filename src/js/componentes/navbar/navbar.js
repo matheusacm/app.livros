@@ -8,10 +8,10 @@ navbar.innerHTML = `<nav class="bem-navbar">
                     <a href="#inicio" class="bem-navbar__link bem-navbar__link--active">inicial</a>
                 </li>
                 <li class="bem-navbar__item">
-                    <a href="#sobre" class="bem-navbar__link">Sobre</a>
+                    <a href="#sobre" class="bem-navbar__link--active">Sobre</a>
                 </li>
                  <li class="bem-navbar__item">
-                    <a href="#serviços" class="bem-navbar__link">servicos</a>
+                    <a href="#serviços" class="bem-navbar__link--active">servicos</a>
                 </li>
             </ul>
         </nav>`
