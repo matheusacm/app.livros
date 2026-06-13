@@ -40,7 +40,8 @@ app.innerHTML = `<h1>Página não encontrada</h1>`;
 function capturarFormulario(){
     const formulario = document.getElementById('formulario-fila');
     const lista = document.getElementById('Lista-de-pessoas');
-     li.style.display = "flex";
+     lista.style.display = "flex";
+     lista.style.flexDirection = "column";
      lista.style,listStyle = "none";
    formulario.addEventListener('submit', (event) => {
     event.preventDefault();
