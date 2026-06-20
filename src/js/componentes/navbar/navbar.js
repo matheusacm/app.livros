@@ -1,3 +1,4 @@
+function navbar(){
 const navbar = document.getElementById('navbar');
 navbar.innerHTML = `<nav class="bem-navbar">
             <a href="#" class="bem-navbar__brand">Brand</a>
@@ -11,12 +12,10 @@ navbar.innerHTML = `<nav class="bem-navbar">
                     <a href="#sobre" class="bem-navbar__link--active">Sobre</a>
                 </li>
                  <li class="bem-navbar__item">
-                    <a href="#serviços" class="bem-navbar__link--active">servicos</a>
+                    <a href="#servicos" class="bem-navbar__link--active">servicos</a>
                 </li>
             </ul>
         </nav>`
-
-
-
+}
 
             export default navbar;

@@ -3,7 +3,7 @@ import home from "./componentes/paginas/home.js";
 import sobre from "./componentes/paginas/sobre.js";
 import contato from "./componentes/paginas/contato.js";
 import servicos from "./componentes/paginas/servicos.js";
-
+navbar();
 const app = document.getElementById('app');
 // app.textContent = '<h1>Olá Mundo!</h1>';
 
@@ -37,34 +37,7 @@ app.innerHTML = `<h1>Página não encontrada</h1>`;
 }
 
 }
-function capturarFormulario(){
-    const formulario = document.getElementById('formulario-fila');
-    const lista = document.getElementById('Lista-de-pessoas');
-     li.style.display = "flex";
-     lista.style,listStyle = "none";
-   formulario.addEventListener('submit', (event) => {
-    event.preventDefault();
-    // console.log(event);
-    // const idadeInput = event.target.elements['idade'];
-    const idade = document.getElementById('idade');
-    console.log(idade);
-    if(idade.value >= 65){
-        console.log("Pessoa com prioridade!");   
-        filaDoBanco.unshift(idade); 
-    }else{
-        console.log("Pessoa sem prioridade!");
-        filaDoBanco.push(idade);
-    }
-    idade.value = "";
-    lista.innerHTML = "";
-    filaDoBanco.forEach((item)=> {
-    const li = document.createElement('li');
-    li.textContent = item;
-   
-    lista.appendChild(li);
-    } )
-} );
-}
+
 
 // console.log("contagem regressiva")
 // for(let i=100; i<=100; i++)
