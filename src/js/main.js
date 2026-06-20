@@ -1,7 +1,7 @@
 import navbar from "./componentes/navbar/navbar.js";
 import home from "./componentes/paginas/home.js";
 import sobre from "./componentes/paginas/sobre.js";
-import contato from "./componentes/paginas/contato.js";
+import {contato, capturarFormulario} from "./componentes/paginas/contato.js";
 import servicos from "./componentes/paginas/servicos.js";
 navbar();
 const app = document.getElementById('app');
@@ -21,13 +21,14 @@ function render(){
     switch(rota){
    case '#inicio':
     app.innerHTML = home;
-    capturarFormulario();
-    break;
+   
     case '#sobre':
         app.innerHTML = sobre;
         break;
         case `#contato`:
             app.innerHTML = contato;
+             capturarFormulario();
+    break;
             break;
         case '#servicos':
         app.innerHTML = servicos;
