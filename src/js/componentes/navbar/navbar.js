@@ -1,24 +1,25 @@
-function navbar(){
+import itens_menu from "../menu/itens.js";
+
+function navbar(item_menu){
 const navbar = document.getElementById('navbar');
 navbar.innerHTML = `<nav class="bem-navbar">
             <a href="#" class="bem-navbar__brand">Brand</a>
             <input type="checkbox" id="nav-toggle" class="bem-navbar__checkbox">
             <label for="nav-toggle" class="bem-navbar__toggle">☰</label>
             <ul class="bem-navbar__menu">
-                <li class="bem-navbar__item">
-                    <a href="#inicio" class="bem-navbar__link bem-navbar__link--active">inicial</a>
-                </li>
-                <li class="bem-navbar__item">
-                    <a href="#sobre" class="bem-navbar__link--active">Sobre</a>
-                </li>
-                 <li class="bem-navbar__item">
-                    <a href="#sobre" class="bem-navbar__link--active">contato</a>
-                </li>
-                 <li class="bem-navbar__item">
-                    <a href="#servicos" class="bem-navbar__link--active">servicos</a>
-                </li>
+                ${
+                        item_menu.map((item)=>{
+                        console.log(item);
+                    
+                    return  `<li class="bem-navbar__item">
+                    <a href="${item.url}" class="bem-navbar__link bem-navbar__link--active">${item.label}</a>
+                </li>`
+                })
+                
+                }
+            
             </ul>
-        </nav>`
+        </nav>`.replaceAll(',','');
 }
 
-            export default navbar;
+export default navbar;
