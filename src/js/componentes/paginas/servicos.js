@@ -1,4 +1,6 @@
-let servicos = "";
+import { servicos } from "./paginas"
+
+let cardServicos = ''
 const detalhes = 
 [
  {   titulo: 'serviço 1',
@@ -19,11 +21,12 @@ const detalhes =
     descricao: 'xxxxxxxxx xxxxxxxxx xxxxx',
     Imagem: 'src/img.js/rayan.jpg'
 },
-];
-servicos += `<div class="bem-grid-auto">`
+]
+function cardServicos{
+serviços += `<sdiv class="bem-grid-auto">`
 for(let i=0; i < detalhes.length; i++){
-servicos += `
-  
+servicos= `
+  s
       <div class="bem-card">
            <img class="bem-card__image" src="${detalhes[i].Imagem}" alt="Image description">
            <div class="bem-card__body">
@@ -31,8 +34,9 @@ servicos += `
         <p>${detalhes[i].descricao}</p>
          </div>
     </div>
-
-</div>
 `
+}
+cardServicos= `</div>`
+return cardServicos
 }
 export default servicos;
