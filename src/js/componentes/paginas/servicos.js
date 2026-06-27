@@ -1,4 +1,4 @@
-import { servicos } from "./paginas"
+
 
 let cardServicos = ''
 const detalhes = 
@@ -22,10 +22,10 @@ const detalhes =
     Imagem: 'src/img.js/rayan.jpg'
 },
 ]
-function cardServicos{
-serviços += `<sdiv class="bem-grid-auto">`
+function servicos(){
+cardServicos += `<sdiv class="bem-grid-auto">`
 for(let i=0; i < detalhes.length; i++){
-servicos= `
+cardServicos= `
   s
       <div class="bem-card">
            <img class="bem-card__image" src="${detalhes[i].Imagem}" alt="Image description">

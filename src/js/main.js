@@ -12,7 +12,7 @@ for(const rota of roteador){
 // console.log(mapaDeRota["#inicio"])
 // console.log(mapaDeRota["#inicio"].pagina)
 // console.log(mapaDeRotas["#inicio"].pagina())
-let rota = window.location.hash || 'inicio';
+let hash = window.location.hash || '#inicio';
 render();
 window.addEventListener("hashchange", ()=>{
 hash = window.location.hash;
