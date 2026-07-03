@@ -1,4 +1,4 @@
-import itens_menu from "../rotas/rotas.js";
+import item_menu from "../rotas/rotas.js";
 
 function navbar(item_menu){
 const navbar = document.getElementById('navbar');
@@ -11,7 +11,7 @@ navbar.innerHTML = `<nav class="bem-navbar">
                         item_menu.map((item)=>{
                     
                     return  `<li class="bem-navbar__item">
-                    <a href="${item.url}" class="bem-navbar__link bem-navbar__link--active">${item.label}</a>
+                    <a href="${item.url}" class="bem-navbar__link">${item.label}</a>
                 </li>`
                 })
                 

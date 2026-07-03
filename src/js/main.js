@@ -22,10 +22,9 @@ render();
 })
 const rota404 = { pagina: () => `<div> Página não encontrada 404 </div>`}
 function render(){
-    const rotaAtual = mapaDeRotas[hash]  || rota404
-    appinnerHTML =  rotaAtual.pagina() 
-    if(typeof mapaDeRotas[hash].acao === 'function'){
-        mapaDeRotas[hash].acao()
+    const rotaAtual = maDeRotas[hash]  || rota404
+    app.innerHTML =  rotaAtual.pagina() 
+    if(typeof rotaAtual.acao === 'function'){
+        rotaAtual.acao()
     }
 }
-
