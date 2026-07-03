@@ -31,9 +31,9 @@ function capturarFormulario(){
         const li = document.createElement('li');
         // outra forma de acessar os dados do formulário, usando o ID dos inputs
         // const assunto = documento.getElementById('assunto').value;
-        const assunto = event.target[0].value;
-        const email = event.target[1].value;
-        const mensagem = event.target[2].value;
+        const assunto = event.target.assunto.value;
+        const email = event.target.email.value;
+        const mensagem = event.target.mensagem.value;
         //template string
         li.textContent = `O Assunto é ${assunto}
          e o email é ${email} 
