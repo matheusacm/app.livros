@@ -44,4 +44,9 @@ function capturarFormulario(){
         event.target[2].value = '';
     })
 }
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 7624035f599d83e90fa6ef52cfb94791510267d0
 export {contato, capturarFormulario};

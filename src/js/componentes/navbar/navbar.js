@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 
+=======
+import item_menu from "../rotas/rotas.js";
+>>>>>>> 7624035f599d83e90fa6ef52cfb94791510267d0
 
 function navbar(item_menu){
 const navbar = document.getElementById('navbar');
