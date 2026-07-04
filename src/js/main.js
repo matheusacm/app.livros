@@ -26,6 +26,3 @@ function render(){
         rotaAtual.acao();
     }
 }
-
-
-
