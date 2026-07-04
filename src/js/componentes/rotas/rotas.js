@@ -1,4 +1,4 @@
-import {home, servicos, sobre, contato, capturarFormulario} from '../paginas/paginas.js'
+import { home, servicos, sobre, contato, capturarFormulario, telaCadastro, capturacep} from '../paginas/paginas.js'
 const roteador = [
     {
         url:'#inicio',
@@ -7,24 +7,30 @@ const roteador = [
 
     },
     {
-        url:'#sobre',
-        label:'Sobre',
-        pagina: sobre
-
-    },
-    {
-        url:'#servicos',
-        label:'Serviços',
-        pagina: servicos
-
-    },
-    {
-        url:'#contatos',
-        label:'Contatos',
-        pagina: contato,
-        acao: capturarFormulario
-
+        url:'#cep',
+        label:'Cadastro',
+        pagina: telaCadastro,
+        acao: capturacep
     }
+    // {
+    //     url:'#sobre',
+    //     label:'Sobre',
+    //     pagina: sobre
+
+    // },
+    // {
+    //     url:'#servicos',
+    //     label:'Serviços',
+    //     pagina: servicos
+
+    // },
+    // {
+    //     url:'#contatos',
+    //     label:'Contatos',
+    //     pagina: contato,
+    //     acao: capturarFormulario
+
+    // }
 ]
 
 export default roteador;
