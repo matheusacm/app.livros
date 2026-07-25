@@ -1,9 +1,9 @@
-import home from '../paginas/home.js'
-import servicos from '../paginas/servicos.js'
+import home from '../paginas/tela inicial de receitas.js'
+import servicos from '../paginas/categorias.js'
 import sobre from '../paginas/sobre.js'
 import contato from '../paginas/contato.js'
 import telaCadastro from '../paginas/formCad.js'
-import criarPagina from '../paginas/personagens.js'
+import criarPagina from '../paginas/busca.js'
 //    URL  cria a ancora ou link
 //    LABEL  nome da ancora
 //    PAGINA  é que chama a pagina
