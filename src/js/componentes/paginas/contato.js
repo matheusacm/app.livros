@@ -1,6 +1,9 @@
-function contato() {
-const paginadecontato = `<h1> Esta é página Contato </h1>
-    <form class="bem-form" id="formulario-de-contato">
+// duas formas de exportar mais de uma função de um mesmo arquivo
+//
+async function contato(app) {
+const paginadecontato = `<section class="bem-container">
+<h1> Esta é página Contato </h1>
+    <form class="bem-container" id="formulario-de-contato">
         <div class="bem-form__group">
             <label for="assunto" class="bem-form__label">Assunto</label>
             <input type="text" name="assunto" id="assunto" class="bem-form__input">
@@ -17,12 +20,14 @@ const paginadecontato = `<h1> Esta é página Contato </h1>
     </form>
     <ul id="lista_de_contatos">
     </ul>
+    </section>
     `
 
-return paginadecontato;
+app.innerHTML = paginadecontato;
+await capturarFormulario()
 } 
 
-function capturarFormulario(){
+async function capturarFormulario(){
     console.log("capturarFormulario foi chamada")
     const formulario = document.getElementById('formulario-de-contato');
     formulario.addEventListener("submit", function(event){
@@ -31,9 +36,9 @@ function capturarFormulario(){
         const li = document.createElement('li');
         // outra forma de acessar os dados do formulário, usando o ID dos inputs
         // const assunto = documento.getElementById('assunto').value;
-        const assunto = event.target.assunto.value;
-        const email = event.target.email.value;
-        const mensagem = event.target.mensagem.value;
+        const assunto = event.target[0].value;
+        const email = event.target[1].value;
+        const mensagem = event.target[2].value;
         //template string
         li.textContent = `O Assunto é ${assunto}
          e o email é ${email} 
@@ -44,9 +49,9 @@ function capturarFormulario(){
         event.target[2].value = '';
     })
 }
-<<<<<<< HEAD
-=======
 
-
->>>>>>> 7624035f599d83e90fa6ef52cfb94791510267d0
-export {contato, capturarFormulario};
+export default {
+    url:'#contato',
+    label:'Contato',
+    pagina: contato
+};
