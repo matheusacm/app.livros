@@ -1,4 +1,4 @@
-import categorias from "../paginas/categorias";
+
 
 const receitas = [
   {
@@ -6,7 +6,7 @@ const receitas = [
     nome: "Macarrão à Bolonhesa",
     categoria: "Massas",
     tempo: "40 minutos",
-    imagem: "macarrao_bolonhesa.jpg",
+    imagem: "../img.js/macarrao_bolonhesa.jpg",
     ingredientes: [
         "200g de macarrão",
         "200g de carne moída",
@@ -22,7 +22,7 @@ const receitas = [
     nome: "Lasanha de carne moída",
     categoria: "Massas",
     tempo: "1 hora",
-    imagem: "lasanha_carne_moida.jpg",
+    imagem: "../img.js/lasanha_carne_moida.jpg",
     ingredientes: [
         "500g de massa para lasanha",
         "500g de carne moída",
@@ -45,7 +45,7 @@ const receitas = [
     nome: "Massa de pizza profissional",
     categoria: "Massas",
     tempo: "50 minutos",
-    imagem: "massa_pizza_profissional.jpg",
+    imagem: "../img.js/massa_pizza_profissional.jpg",
     ingredientes: [
         "259g de farinha de trigo",
         "1 colher de chá de sal",

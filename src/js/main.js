@@ -1,5 +1,5 @@
-import navbar from "./components/navbar/navbar.js";
-import roteador from "./components/rotas/rotas.js";
+import navbar from "./componentes/navbar/navbar.js";
+import roteador from "./rotas/rotas.js";
 navbar(roteador);
 const app = document.getElementById('app');
 //console.log(roteador)
@@ -13,7 +13,7 @@ for(const rota of roteador){
 // console.log(mapaDeRotas["#inicio"].pagina)
 // console.log(mapaDeRotas["#inicio"].pagina())
 //    && = e  || = ou
-let hash = window.location.hash || '#inicio';
+let hash = window.location.hash || '#home';
 render();
 window.addEventListener("hashchange", ()=>{
 hash = window.location.hash;
@@ -21,12 +21,11 @@ render();
 
 
 })
-const rota404 = { pagina: () => `<div> Página não encontrada 404 </div>`}
+const rota404 = { pagina: () => { app.innerHTML = `<div> Página não encontrada 404 </div>` } }
 async function render(){
-    const rotaAtual = mapaDeRotas[hash] || rota404
+ } const rotaAtual = mapaDeRotas[hash] || rota404
     await rotaAtual.pagina(app)
     
-}
 // testes de assincronismo
 // console.log("A Primeira chamada")
 // setTimeout(()=>{

@@ -1,4 +1,4 @@
-import home from '../paginas/tela inicial de receitas.js'
+import home from '../paginas/TelaInicialDeReceitas.js'
 import servicos from '../paginas/categorias.js'
 import sobre from '../paginas/sobre.js'
 import contato from '../paginas/contato.js'
