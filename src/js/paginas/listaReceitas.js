@@ -1,6 +1,8 @@
 import receitas from "../dados/receitas.js";
 
 function listaReceitas(app) {
+
+
     const categoria = sessionStorage.getItem("categoriaSelecionada");
 
     let resultado = receitas;
@@ -16,6 +18,7 @@ function listaReceitas(app) {
     resultado.forEach((receita) => {
         cards += `
             <div class="bem-card">
+
                 <img
                     class="bem-card__image"
                     src="${receita.imagem}"
@@ -24,9 +27,15 @@ function listaReceitas(app) {
 
                 <div class="bem-card__body">
                     <h3 class="bem-card__title">${receita.nome}</h3>
+
                     <p>Categoria: ${receita.categoria}</p>
                     <p>Tempo: ${receita.tempo}</p>
                 </div>
+
+                    <p>${receita.categoria}</p>
+                    <p>${receita.tempo}</p>
+                </div>
+
             </div>
         `;
     });
@@ -45,5 +54,7 @@ function listaReceitas(app) {
 export default {
     url: "#lista",
     label: "Lista de Receitas",
+    label: "Lista",
+
     pagina: listaReceitas
 };
