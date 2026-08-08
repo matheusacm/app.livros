@@ -57,7 +57,7 @@ async function capturaBotoes(app, personagens) {
 }
 
 export default {
-    url: "#rick",
-    label: "Buscar API",
+    url: "#busca",
+    label: "Buscar",
     pagina: criarPagina
 };
