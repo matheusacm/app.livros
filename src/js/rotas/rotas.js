@@ -1,20 +1,19 @@
-import home from '../paginas/TelaInicialDeReceitas.js'
-import servicos from '../paginas/categorias.js'
-import sobre from '../paginas/sobre.js'
-import contato from '../paginas/contato.js'
-import telaCadastro from '../paginas/formCad.js'
-import criarPagina from '../paginas/busca.js'
-//    URL  cria a ancora ou link
-//    LABEL  nome da ancora
-//    PAGINA  é que chama a pagina
-//    ACAO    é evento dentro da pagina
+import home from "../paginas/home.js";
+import categorias from "../paginas/categorias.js";
+import listaReceitas from "../paginas/listaReceitas.js";
+import sobre from "../paginas/sobre.js";
+import contato from "../paginas/contato.js";
+import telaCadastro from "../paginas/formCad.js";
+import busca from "../paginas/busca.js";
+
 const roteador = [
     home,
-    servicos,
+    categorias,
+    listaReceitas,
     sobre,
     contato,
     telaCadastro,
-    criarPagina
-]
+    busca
+];
 
 export default roteador;

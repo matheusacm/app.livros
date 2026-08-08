@@ -8,4 +8,4 @@ async function buscarServicos(url, dados='', forma=''){
         console.error(error);
     };
 }
-export default buscarNoMundo;
+export default buscarServicos;

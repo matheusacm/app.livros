@@ -1,52 +1,54 @@
-let cardServico = "";
-const detalhes = [
-    {
-        titulo: 'tipos de massas',
-        descricao: 'receitas de macarrão, lasanha, pizza e outros pratos',
-        imagem: 'src/img/tipos-de-massas.jpg'
-    },
-    {
-        titulo: 'carnes',
-        descricao: 'receitas de carne, frango, etc',
-        imagem: 'src/img/Carnes.jpg'
-    },
-    {
-        titulo: 'sobremesas',
-        descricao: 'receitas de doces, bolos, tortas e outros pratos',
-        imagem: 'src/img/sobremesas.webp'
-    },
-       {
-        titulo: 'bebidas',
-        descricao: 'receitas de bebidas, sucos, refrigerantes e outros',
-        imagem: 'src/img/bebidas.jpg'
-    },
-      {
-        titulo: 'saudáveis',
-        descricao: 'receitas saudáveis e nutritivas',
-        imagem: 'src/img/saudáveis.jpg'
-    }
-]
+const categorias = [
+    "Massas",
+    "Carnes",
+    "Sobremesas",
+    "Bebidas",
+    "Saudáveis"
+];
 
-//
-async function categorias(app){
-    cardServico += `<div class="bem-grid-auto">`
-    for(let i=0; i < detalhes.length; i++){
-        cardServico += `
-                    <div class="bem-card">
-                        <img class="bem-card__image" src="${detalhes[i].imagem}" alt="Image description">
-                        <div class="bem-card__body">
-                            <h3 class="bem-card__title">${detalhes[i].titulo}</h3>
-                            <p>${detalhes[i].descricao}</p>
-                        </div>
-                    </div>
-                
-            `
-        }
-    cardServico += `</div>`
-    app.innerHTML = cardServico
+function categoriasPagina(app) {
+    let cards = "";
+
+    categorias.forEach((categoria) => {
+        cards += `
+            <div class="bem-card">
+                <div class="bem-card__body">
+                    <h3 class="bem-card__title">${categoria}</h3>
+
+                    <button
+                        class="bem-btn bem-btn--primary"
+                        data-categoria="${categoria}">
+                        Ver receitas
+                    </button>
+                </div>
+            </div>
+        `;
+    });
+
+    app.innerHTML = `
+        <section class="bem-container">
+            <h1>Categorias</h1>
+
+            <div class="bem-grid-auto">
+                ${cards}
+            </div>
+        </section>
+    `;
+
+    document.querySelectorAll("[data-categoria]").forEach((botao) => {
+        botao.addEventListener("click", () => {
+            sessionStorage.setItem(
+                "categoriaSelecionada",
+                botao.dataset.categoria
+            );
+
+            window.location.hash = "#lista";
+        });
+    });
 }
+
 export default {
-    url: '#Categorias',
-    label: 'Categorias',
-    pagina: categorias
+    url: "#categorias",
+    label: "Categorias",
+    pagina: categoriasPagina
 };
