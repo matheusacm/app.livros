@@ -1,4 +1,4 @@
-import home from "../paginas/home.js";
+import home from "../paginas/TelaInicialDeReceitas.js";
 import categorias from "../paginas/categorias.js";
 import listaReceitas from "../paginas/listaReceitas.js";
 import sobre from "../paginas/sobre.js";
