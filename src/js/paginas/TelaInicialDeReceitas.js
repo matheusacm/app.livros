@@ -1,4 +1,4 @@
-import receitas from "../dados.js/receitas.js";
+import receitas from "../dados/receitas.js";
 function home (app){
     let cards = "";
     receitas.forEach((receita)=>{

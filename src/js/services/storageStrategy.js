@@ -1,4 +1,4 @@
-import buscarServicos from "./api";
+import buscarServicos from "./api.js";
 
 const memoriaTemporaria = {
     _cache: new Map(),

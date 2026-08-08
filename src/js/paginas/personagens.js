@@ -1,63 +1,106 @@
-import buscarServicos from "../services/api.js"
+import buscarServicos from "../services/api.js";
 
-let numero = 1
-async function criarPagina(app){
-    const nPagina = `?page=${numero}`;
-    const detalhes = await buscarServicos("https://rickandmortyapi.com/api/character/",nPagina);
-    console.log(detalhes.results)
-    let cardServico = ""
-    cardServico += `
-    <div class="bem-container">
-        <button class="bem-btn bem-btn--primary" id="btn-esquerda">
-            <span class="bem-btn__icon"> ◄ </span>
-            <span class="bem-btn__text"> ◄ </span>
-        </button>
-        <button class="bem-btn bem-btn--primary" id="btn-direita">
-            <span class="bem-btn__icon"> ► </span>
-            <span class="bem-btn__text"> ► </span>
-        </button>
-    </div>
-    <div class="bem-grid-auto">
+async function criarPagina(app) {
 
-    `
-    for(let i=0; i < detalhes.results.length; i++){
-        cardServico += `
-                    <div class="bem-card">
-                        <img class="bem-card__image" src="${detalhes.results[i].image}" alt="Image description">
-                        <div class="bem-card__body">
-                            <h3 class="bem-card__title">${detalhes.results[i].name}</h3>
-                            <p>${detalhes.results[i].species}</p>
-                        </div>
+    app.innerHTML = `
+        <section class="bem-container">
+
+            <h1>Buscar receitas pela API</h1>
+
+            <div class="bem-form__group">
+
+                <label
+                    for="pesquisa"
+                    class="bem-form__label">
+                    Nome da receita
+                </label>
+
+                <input
+                    type="text"
+                    id="pesquisa"
+                    class="bem-form__input"
+                    placeholder="Ex: chicken"
+                >
+
+                <button
+                    id="btn-buscar"
+                    class="bem-btn bem-btn--primary">
+                    Buscar
+                </button>
+
+            </div>
+
+            <div
+                id="resultado"
+                class="bem-grid-auto">
+            </div>
+
+        </section>
+    `;
+
+    const input = document.getElementById("pesquisa");
+    const botao = document.getElementById("btn-buscar");
+    const resultado = document.getElementById("resultado");
+
+    botao.addEventListener("click", async () => {
+
+        const pesquisa = input.value.trim();
+
+        if (!pesquisa) {
+            resultado.innerHTML = "<p>Digite o nome de uma receita.</p>";
+            return;
+        }
+
+        resultado.innerHTML = "<p>Buscando...</p>";
+
+        const dados = await buscarServicos(
+            "https://www.themealdb.com/api/json/v1/1/search.php?s=",
+            pesquisa
+        );
+
+        if (!dados || !dados.meals) {
+            resultado.innerHTML =
+                "<p>Nenhuma receita encontrada.</p>";
+            return;
+        }
+
+        resultado.innerHTML = "";
+
+        dados.meals.forEach((receita) => {
+
+            resultado.innerHTML += `
+                <div class="bem-card">
+
+                    <img
+                        class="bem-card__image"
+                        src="${receita.strMealThumb}"
+                        alt="${receita.strMeal}"
+                    >
+
+                    <div class="bem-card__body">
+
+                        <h3 class="bem-card__title">
+                            ${receita.strMeal}
+                        </h3>
+
+                        <p>
+                            Categoria: ${receita.strCategory}
+                        </p>
+
+                        <p>
+                            Origem: ${receita.strArea}
+                        </p>
+
                     </div>
-                
-            `
-        }
-    cardServico += `</div>`
-    app.innerHTML = cardServico
-    await capturaBotoes(app, detalhes.results)
-}
 
-async function capturaBotoes(app, personagens) {
-    const botao_esquerdo = document.getElementById("btn-esquerda")
-    const botao_direito = document.getElementById("btn-direita")
-
-    botao_esquerdo.addEventListener("click", ()=>{
-        if(numero > 1){
-            numero=numero-1
-            criarPagina(app)
-        }
-    } )
-
-    botao_direito.addEventListener("click", ()=>{
-        if(numero < 20){
-            numero=numero+1
-            criarPagina(app)
-        }
-    } )
+                </div>
+            `;
+        });
+    });
 }
 
 export default {
     url: "#busca",
-    label: "Buscar",
+    label: "Buscar API",
     pagina: criarPagina
 };

@@ -1,5 +1,5 @@
-import buscarNoMundo from "./api";
-import { memoriaTemporaria, memoriaPermanente } from "./storageStrategy";
+import buscarNoMundo from "./api.js";
+import { memoriaTemporaria, memoriaPermanente } from "./storageStrategy.js";
 
 const storage  = memoriaPermanente;
 
