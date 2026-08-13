@@ -41,9 +41,7 @@ function sobre(app) {
                 <li>
                     <strong>Persistência de Dados no Navegador:</strong> Uso de <code>sessionStorage</code> para retenção temporária do estado de filtros e <code>localStorage</code> para gravação contínua de novas receitas cadastradas pelo usuário.
                 </li>
-                <li>
-                    <strong>Estrutura Pronta para IA:</strong> Arquivo <code>aiService.js</code> estruturado para futuras integrações conforme orientação pedagógica do professor.
-                </li>
+
             </ul>
         </article>
 
