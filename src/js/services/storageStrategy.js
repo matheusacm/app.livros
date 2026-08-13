@@ -4,15 +4,15 @@ const memoriaTemporaria = {
     _cache: new Map(),
     // é para verificar se existe a informação armazenada
     existe(chave){
-        return this._cache.has(key);
+        return this._cache.has(chave);
     },
     //buscar dados salvos na memoria
     buscarDadosLocal(chave){
-        return this._cache.get(key);
+        return this._cache.get(chave);
     },
     //salvar dados na memoria
     salvarDadosLocal(chave, valor){
-        this._cache.set(key, valor);
+        this._cache.set(chave, valor);
     }
 };
 

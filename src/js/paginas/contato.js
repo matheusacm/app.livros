@@ -16,38 +16,47 @@ const paginadecontato = `<section class="bem-container">
             <label for="mensagem" class="bem-form__label">Mensagem</label>
             <textarea class="bem-form__textarea" name="mensagem" id="mensagem" cols="30" rows="10"></textarea>
         </div>
-        <button type="submit" class="bem-btn--primary">Enviar</button>
+        <button type="submit" class="bem-btn bem-btn--primary" style="margin-top: 1rem;">Enviar</button>
     </form>
-    <ul id="lista_de_contatos">
-    </ul>
+    
+    <div style="margin-top: 2rem;">
+        <h3>Mensagens enviadas</h3>
+        <div id="lista_de_contatos" style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.75rem;">
+        </div>
+    </div>
     </section>
-    `
+    `;
 
-app.innerHTML = paginadecontato;
-await capturarFormulario()
+    app.innerHTML = paginadecontato;
+    await capturarFormulario();
 } 
 
-async function capturarFormulario(){
-    console.log("capturarFormulario foi chamada")
+async function capturarFormulario() {
     const formulario = document.getElementById('formulario-de-contato');
-    formulario.addEventListener("submit", function(event){
+    if (!formulario) return;
+
+    formulario.addEventListener("submit", function(event) {
         event.preventDefault();
         const lista = document.getElementById('lista_de_contatos');
-        const li = document.createElement('li');
-        // outra forma de acessar os dados do formulário, usando o ID dos inputs
-        // const assunto = documento.getElementById('assunto').value;
-        const assunto = event.target[0].value;
-        const email = event.target[1].value;
-        const mensagem = event.target[2].value;
-        //template string
-        li.textContent = `O Assunto é ${assunto}
-         e o email é ${email} 
-         e a mensagem é ${mensagem}`;
-        lista.appendChild(li);
-        event.target[0].value = '';
-        event.target[1].value = '';
-        event.target[2].value = '';
-    })
+        
+        const assunto = document.getElementById('assunto').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const mensagem = document.getElementById('mensagem').value.trim();
+
+        if (!assunto || !email || !mensagem) return;
+
+        const cardMensagem = document.createElement('div');
+        cardMensagem.className = 'bem-alert bem-alert--info';
+        cardMensagem.innerHTML = `
+            <div class="bem-alert__content">
+                <h4 class="bem-alert__title">${assunto} (${email})</h4>
+                <p class="bem-alert__message">${mensagem}</p>
+            </div>
+        `;
+        lista.appendChild(cardMensagem);
+
+        formulario.reset();
+    });
 }
 
 export default {

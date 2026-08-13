@@ -1,25 +1,27 @@
 const categorias = [
-    "Massas",
-    "Carnes",
-    "Sobremesas",
-    "Bebidas",
-    "Saudáveis"
+    { nome: "Massas", imagem: "src/img.js/tipos-de-massas.jpg" },
+    { nome: "Carnes", imagem: "src/img.js/Carnes.jpg" },
+    { nome: "Sobremesas", imagem: "src/img.js/sobremesas.webp" },
+    { nome: "Bebidas", imagem: "src/img.js/bebidas.jpg" },
+    { nome: "Saudáveis", imagem: "src/img.js/saudáveis.webp" }
 ];
 
 function categoriasPagina(app) {
     let cards = "";
 
-    categorias.forEach((categoria) => {
+    categorias.forEach((cat) => {
         cards += `
             <div class="bem-card">
+                <img class="bem-card__image" src="${cat.imagem}" alt="${cat.nome}" style="height: 180px; object-fit: cover;">
                 <div class="bem-card__body">
-                    <h3 class="bem-card__title">${categoria}</h3>
-
-                    <button
-                        class="bem-btn bem-btn--primary"
-                        data-categoria="${categoria}">
-                        Ver receitas
-                    </button>
+                    <h3 class="bem-card__title">${cat.nome}</h3>
+                    <div style="margin-top: 1rem;">
+                        <button
+                            class="bem-btn bem-btn--primary bem-btn--sm"
+                            data-categoria="${cat.nome}">
+                            Ver receitas
+                        </button>
+                    </div>
                 </div>
             </div>
         `;

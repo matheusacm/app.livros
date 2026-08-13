@@ -15,17 +15,35 @@ for(const rota of roteador){
 //    && = e  || = ou
 let hash = window.location.hash || '#home';
 render();
-window.addEventListener("hashchange", ()=>{
-hash = window.location.hash;
-render();
 
+window.addEventListener("hashchange", () => {
+    hash = window.location.hash || '#home';
+    render();
+});
 
-})
-const rota404 = { pagina: () => { app.innerHTML = `<div> Página não encontrada 404 </div>` } }
-async function render(){
-  const rotaAtual = mapaDeRotas[hash] || rota404
-    await rotaAtual.pagina(app)
+const rota404 = {
+    pagina: (app) => {
+        app.innerHTML = `
+            <section class="bem-container">
+                <div class="bem-alert bem-alert--danger">
+                    <div class="bem-alert__content">
+                        <h4 class="bem-alert__title">Erro 404</h4>
+                        <p class="bem-alert__message">Página não encontrada.</p>
+                    </div>
+                </div>
+                <div style="margin-top: 1rem;">
+                    <a href="#home" class="bem-btn bem-btn--primary">Voltar ao Início</a>
+                </div>
+            </section>
+        `;
     }
+};
+
+async function render() {
+    const rotaBase = hash.split('?')[0];
+    const rotaAtual = mapaDeRotas[rotaBase] || rota404;
+    await rotaAtual.pagina(app);
+}
 // testes de assincronismo
 // console.log("A Primeira chamada")
 // setTimeout(()=>{
