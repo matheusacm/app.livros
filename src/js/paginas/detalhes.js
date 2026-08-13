@@ -1,90 +1,155 @@
-import receitas from "../dados/receitas.js";
+import receitasPadrao from "../dados/receitas.js";
 
 function detalhesReceita(app) {
-    // Busca ID da receita selecionada no sessionStorage ou na URL
     const idSalvo = sessionStorage.getItem("receitaSelecionadaId");
     
-    // Procura na lista local de receitas (ou no localStorage caso tenha sido cadastrada)
-    let receitasCompletas = [...receitas];
+    // Procura na lista padrão ou no localStorage
     const receitasCustomizadas = JSON.parse(localStorage.getItem("receitasCadastradas") || "[]");
-    receitasCompletas = [...receitasCompletas, ...receitasCustomizadas];
+    const todasReceitas = [...receitasPadrao, ...receitasCustomizadas];
 
-    const receita = receitasCompletas.find((r) => String(r.id) === String(idSalvo));
+    const receita = todasReceitas.find((r) => String(r.id) === String(idSalvo));
 
     if (!receita) {
         app.innerHTML = `
             <section class="bem-container">
-                <div class="bem-alert bem-alert--warning">
-                    <div class="bem-alert__content">
-                        <h4 class="bem-alert__title">Receita não encontrada</h4>
-                        <p class="bem-alert__message">Selecione uma receita na página inicial ou na lista de categorias para ver os detalhes.</p>
-                    </div>
-                </div>
-                <div style="margin-top: 1rem;">
-                    <a href="#home" class="bem-btn bem-btn--primary">Voltar para Home</a>
+                <div class="bem-alert bem-alert--warning" style="padding: 2.5rem; text-align: center; display: block;">
+                    <h3 style="font-size: 1.4rem; margin-bottom: 0.5rem;">Nenhuma receita selecionada</h3>
+                    <p style="color: var(--bem-text-muted); margin-bottom: 1.5rem;">
+                        Escolha uma receita na Página Inicial ou na Lista para visualizar os ingredientes e o modo de preparo detalhado.
+                    </p>
+                    <a href="#home" class="bem-btn bem-btn--primary">Ir para a Página Inicial</a>
                 </div>
             </section>
         `;
         return;
     }
 
-    const listaIngredientes = Array.isArray(receita.ingredientes)
-        ? receita.ingredientes.map((ing) => `<li>${ing}</li>`).join("")
-        : `<li>${receita.ingredientes}</li>`;
+    // Normaliza ingredientes em lista
+    const ingredientesArray = Array.isArray(receita.ingredientes)
+        ? receita.ingredientes
+        : (receita.ingredientes || "").split("\n").map(i => i.trim()).filter(i => i.length > 0);
+
+    // Normaliza passos de preparo
+    let passosPreparo = [];
+    if (Array.isArray(receita.preparo)) {
+        passosPreparo = receita.preparo;
+    } else if (typeof receita.preparo === 'string') {
+        // Separa por quebra de linha ou pontos numerados
+        passosPreparo = receita.preparo
+            .split(/\n+/)
+            .map(p => p.replace(/^\d+[\.\)]\s*/, '').trim())
+            .filter(p => p.length > 0);
+    }
+
+    const catClass = (receita.categoria || "").toLowerCase()
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    const badgeClass = `recipe-badge--${catClass}`;
 
     app.innerHTML = `
         <section class="bem-container">
-            <div style="margin-bottom: 1rem;">
-                <button id="btn-voltar" class="bem-btn bem-btn--outline">
+            <div style="margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+                <button id="btn-voltar-detalhe" class="bem-btn bem-btn--outline">
                     &larr; Voltar
                 </button>
+                <div style="font-size: 0.9rem; color: var(--bem-text-muted);">
+                    Receita #${receita.id} | Categoria: <strong>${receita.categoria}</strong>
+                </div>
             </div>
 
-            <article class="bem-card">
-                <img
-                    class="bem-card__image"
-                    src="${receita.imagem || 'src/img.js/receitas.webp'}"
-                    alt="${receita.nome}"
-                    style="max-height: 400px; object-fit: cover;"
-                >
+            <article class="recipe-details">
+                <div class="recipe-details__hero">
+                    <img
+                        class="recipe-details__image"
+                        src="${receita.imagem || 'src/img.js/receitas.webp'}"
+                        alt="${receita.nome}"
+                    >
+                </div>
 
-                <div class="bem-card__body">
-                    <h1 class="bem-card__title" style="font-size: 2rem; margin-bottom: 0.5rem;">
-                        ${receita.nome}
-                    </h1>
+                <div class="recipe-details__header">
+                    <div style="margin-bottom: 0.75rem;">
+                        <span class="recipe-badge ${badgeClass}">${receita.categoria}</span>
+                    </div>
 
-                    <p style="margin-bottom: 0.5rem;">
-                        <strong>Categoria:</strong> ${receita.categoria} | 
-                        <strong>Tempo de preparo:</strong> ${receita.tempo}
-                    </p>
+                    <h1 class="recipe-details__title">${receita.nome}</h1>
 
-                    <hr style="margin: 1.5rem 0; border: 0; border-top: 1px solid var(--bem-border);">
+                    <div class="recipe-details__meta-bar">
+                        <div class="recipe-details__meta-item">
+                            <span>⏱️ <strong>Tempo de preparo:</strong> ${receita.tempo}</span>
+                        </div>
+                        ${receita.porcoes ? `
+                            <div class="recipe-details__meta-item">
+                                <span>🍽️ <strong>Rendimento:</strong> ${receita.porcoes}</span>
+                            </div>
+                        ` : ''}
+                        ${receita.dificuldade ? `
+                            <div class="recipe-details__meta-item">
+                                <span>⭐ <strong>Dificuldade:</strong> ${receita.dificuldade}</span>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
 
-                    <h2 style="font-size: 1.3rem; margin-bottom: 0.75rem;">Ingredientes</h2>
-                    <ul style="padding-left: 1.5rem; margin-bottom: 1.5rem; line-height: 1.8;">
-                        ${listaIngredientes}
-                    </ul>
+                <div class="recipe-details__body">
+                    <!-- Coluna de Ingredientes -->
+                    <aside class="recipe-ingredients">
+                        <h2 style="font-size: 1.3rem; border-bottom: 2px solid #fecdd3; padding-bottom: 0.5rem;">
+                            🛒 Ingredientes Necessários
+                        </h2>
+                        <ul class="recipe-ingredients__list">
+                            ${ingredientesArray.map((ing) => `
+                                <li class="recipe-ingredients__item">
+                                    <span class="recipe-ingredients__bullet">✓</span>
+                                    <span>${ing}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </aside>
 
-                    <h2 style="font-size: 1.3rem; margin-bottom: 0.75rem;">Modo de Preparo</h2>
-                    <p style="line-height: 1.7; white-space: pre-line;">
-                        ${receita.preparo}
-                    </p>
+                    <!-- Coluna de Modo de Preparo -->
+                    <div class="recipe-steps-container">
+                        <h2 style="font-size: 1.3rem; margin-bottom: 1.25rem; border-bottom: 2px solid #fecdd3; padding-bottom: 0.5rem;">
+                            👩‍🍳 Modo de Preparo Passo a Passo
+                        </h2>
+
+                        <div class="recipe-steps">
+                            ${passosPreparo.map((passo, index) => `
+                                <div class="recipe-step-item">
+                                    <span class="recipe-step-number">${index + 1}</span>
+                                    <p style="font-size: 1rem; color: var(--bem-text);">${passo}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        ${receita.dica ? `
+                            <div class="chef-tip-box">
+                                <span class="chef-tip-box__icon">💡</span>
+                                <div class="chef-tip-box__text">
+                                    <strong>Dica do Chef:</strong> ${receita.dica}
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
                 </div>
             </article>
+
+            <div style="margin-top: 2rem; text-align: center;">
+                <button id="btn-voltar-detalhe-baixo" class="bem-btn bem-btn--outline">
+                    &larr; Voltar para a Navegação
+                </button>
+            </div>
         </section>
     `;
 
-    const btnVoltar = document.getElementById("btn-voltar");
-    if (btnVoltar) {
-        btnVoltar.addEventListener("click", () => {
-            // Volta para a página anterior ou para #home
-            if (window.history.length > 1) {
-                window.history.back();
-            } else {
-                window.location.hash = "#home";
-            }
-        });
-    }
+    const voltar = () => {
+        if (window.history.length > 1) {
+            window.history.back();
+        } else {
+            window.location.hash = "#home";
+        }
+    };
+
+    document.getElementById("btn-voltar-detalhe")?.addEventListener("click", voltar);
+    document.getElementById("btn-voltar-detalhe-baixo")?.addEventListener("click", voltar);
 }
 
 export default {

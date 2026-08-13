@@ -1,0 +1,896 @@
+/* ==========================================================================
+   SABORES & RECEITAS - DESIGN SYSTEM & STYLES (VANILLA CSS / METODOLOGIA BEM)
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+/* --- 1. Variáveis Globais e Identidade Culinária --- */
+:root {
+  /* Paleta Culinária Gourmet */
+  --bem-primary: #e11d48;        /* Vermelho Chef / Ruby Intenso */
+  --bem-primary-hover: #be123c;
+  --bem-secondary: #ea580c;      /* Laranja Tangerina / Fogo */
+  --bem-secondary-hover: #c2410c;
+  --bem-accent: #059669;         /* Verde Alecrim / Saudável */
+  --bem-accent-hover: #047857;
+  --bem-warning: #f59e0b;        /* Amarelo Açafrão */
+  --bem-danger: #ef4444;         /* Alerta Vermelho */
+  --bem-info: #0284c7;           /* Azul Oceano */
+
+  /* Cores Neutras e Superfícies */
+  --bem-bg: #f8fafc;             /* Fundo da aplicação */
+  --bem-surface: #ffffff;        /* Fundo de cards e modais */
+  --bem-surface-muted: #f1f5f9;  /* Superfícies secundárias */
+  --bem-text: #0f172a;           /* Texto principal (Ardósia Escura) */
+  --bem-text-muted: #64748b;     /* Texto secundário */
+  --bem-border: #e2e8f0;         /* Bordas suaves */
+  --bem-border-focus: #e11d48;   /* Borda de foco nos campos */
+
+  /* Tipografia */
+  --bem-font-base: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --bem-font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Espaçamentos */
+  --bem-spacing-xs: 0.25rem;
+  --bem-spacing-sm: 0.5rem;
+  --bem-spacing-md: 1rem;
+  --bem-spacing-lg: 1.5rem;
+  --bem-spacing-xl: 2.5rem;
+  --bem-spacing-2xl: 4rem;
+
+  /* Raios de Arredondamento */
+  --bem-radius-sm: 0.375rem;
+  --bem-radius-md: 0.75rem;
+  --bem-radius-lg: 1.25rem;
+  --bem-radius-full: 9999px;
+
+  /* Sombras */
+  --bem-shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  --bem-shadow-md: 0 4px 12px -2px rgba(15, 23, 42, 0.08);
+  --bem-shadow-lg: 0 12px 24px -4px rgba(15, 23, 42, 0.12);
+  --bem-shadow-hover: 0 20px 30px -8px rgba(225, 29, 72, 0.15);
+}
+
+/* --- 2. Reset e Base --- */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--bem-font-base);
+  background-color: var(--bem-bg);
+  color: var(--bem-text);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+
+main#app {
+  flex: 1;
+  padding: var(--bem-spacing-xl) 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--bem-font-heading);
+  color: var(--bem-text);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+a {
+  color: var(--bem-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--bem-primary-hover);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* --- 3. Contêineres e Grid BEM --- */
+.bem-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--bem-spacing-md);
+}
+
+.bem-container--narrow {
+  max-width: 760px;
+}
+
+.bem-grid-auto {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: var(--bem-spacing-lg);
+}
+
+.bem-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--bem-spacing-lg);
+}
+
+@media (max-width: 768px) {
+  .bem-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- 4. Navbar BEM --- */
+.bem-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--bem-surface);
+  border-bottom: 1px solid var(--bem-border);
+  box-shadow: var(--bem-shadow-sm);
+  backdrop-filter: blur(8px);
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+.bem-navbar__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--bem-spacing-md) var(--bem-spacing-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bem-navbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--bem-text);
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+
+.bem-navbar__brand span {
+  color: var(--bem-primary);
+}
+
+.bem-navbar__menu {
+  display: flex;
+  align-items: center;
+  gap: var(--bem-spacing-sm);
+  list-style: none;
+}
+
+.bem-navbar__link {
+  display: inline-block;
+  padding: 0.5rem 0.85rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--bem-text-muted);
+  border-radius: var(--bem-radius-md);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.bem-navbar__link:hover {
+  color: var(--bem-primary);
+  background-color: #fff1f2;
+}
+
+.bem-navbar__link--active {
+  color: var(--bem-primary);
+  background-color: #ffe4e6;
+  font-weight: 700;
+}
+
+.bem-navbar__toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  color: var(--bem-text);
+  padding: 0.25rem;
+}
+
+@media (max-width: 860px) {
+  .bem-navbar__toggle {
+    display: block;
+  }
+
+  .bem-navbar__menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--bem-surface);
+    flex-direction: column;
+    padding: var(--bem-spacing-md);
+    box-shadow: var(--bem-shadow-md);
+    border-bottom: 1px solid var(--bem-border);
+    gap: 0.25rem;
+  }
+
+  .bem-navbar__checkbox:checked ~ .bem-navbar__menu {
+    display: flex;
+  }
+
+  .bem-navbar__link {
+    width: 100%;
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* --- 5. Botões BEM --- */
+.bem-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.35rem;
+  font-family: var(--bem-font-base);
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: var(--bem-radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  line-height: 1.2;
+}
+
+.bem-btn:active {
+  transform: scale(0.98);
+}
+
+.bem-btn--primary {
+  background-color: var(--bem-primary);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(225, 29, 72, 0.25);
+}
+
+.bem-btn--primary:hover {
+  background-color: var(--bem-primary-hover);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(225, 29, 72, 0.35);
+  transform: translateY(-1px);
+}
+
+.bem-btn--secondary {
+  background-color: var(--bem-secondary);
+  color: #ffffff;
+}
+
+.bem-btn--secondary:hover {
+  background-color: var(--bem-secondary-hover);
+  color: #ffffff;
+}
+
+.bem-btn--outline {
+  background-color: transparent;
+  border-color: var(--bem-border);
+  color: var(--bem-text);
+}
+
+.bem-btn--outline:hover {
+  background-color: var(--bem-surface-muted);
+  border-color: var(--bem-text-muted);
+  color: var(--bem-text);
+}
+
+.bem-btn--sm {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.85rem;
+}
+
+.bem-btn--lg {
+  padding: 0.85rem 1.75rem;
+  font-size: 1.05rem;
+}
+
+.bem-btn--block {
+  width: 100%;
+}
+
+/* --- 6. Cards BEM --- */
+.bem-card {
+  background-color: var(--bem-surface);
+  border-radius: var(--bem-radius-lg);
+  border: 1px solid var(--bem-border);
+  box-shadow: var(--bem-shadow-sm);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.bem-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--bem-shadow-lg);
+  border-color: #fecdd3;
+}
+
+.bem-card__image-container {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background-color: #f1f5f9;
+}
+
+.bem-card__image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.bem-card:hover .bem-card__image {
+  transform: scale(1.04);
+}
+
+.bem-card__body {
+  padding: var(--bem-spacing-lg);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.bem-card__title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--bem-text);
+  line-height: 1.35;
+}
+
+.bem-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--bem-text-muted);
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.bem-card__footer {
+  margin-top: auto;
+  padding-top: var(--bem-spacing-sm);
+}
+
+/* --- 7. Badges e Tags Culinárias --- */
+.recipe-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--bem-radius-full);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.recipe-badge--massas { background-color: #ffedd5; color: #c2410c; }
+.recipe-badge--carnes { background-color: #fee2e2; color: #b91c1c; }
+.recipe-badge--bebidas { background-color: #e0f2fe; color: #0369a1; }
+.recipe-badge--sobremesas { background-color: #fce7f3; color: #be185d; }
+.recipe-badge--saudaveis { background-color: #dcfce7; color: #15803d; }
+.recipe-badge--geral { background-color: #f1f5f9; color: #475569; }
+
+/* --- 8. Formulários BEM (CORREÇÃO CRÍTICA DO BUG DE FOCO) --- */
+.bem-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bem-spacing-md);
+}
+
+.bem-form__group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.bem-form__label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--bem-text);
+}
+
+.bem-form__label--required::after {
+  content: ' *';
+  color: var(--bem-primary);
+}
+
+/* Campos de entrada com CONTRASTE E VISIBILIDADE 100% GARANTIDOS */
+.bem-form__input,
+.bem-form__textarea,
+.bem-form__select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-family: var(--bem-font-base);
+  font-size: 1rem;
+  color: var(--bem-text) !important;
+  background-color: #ffffff !important;
+  border: 1.5px solid var(--bem-border);
+  border-radius: var(--bem-radius-md);
+  opacity: 1 !important; /* CORREÇÃO DO BUG: Impede que o campo suma */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  line-height: 1.5;
+}
+
+.bem-form__input::placeholder,
+.bem-form__textarea::placeholder {
+  color: #94a3b8;
+  opacity: 1;
+}
+
+/* Estado de FOCO: Totalmente visível, com anel de destaque suave */
+.bem-form__input:focus,
+.bem-form__textarea:focus,
+.bem-form__select:focus {
+  opacity: 1 !important;
+  color: var(--bem-text) !important;
+  background-color: #ffffff !important;
+  border-color: var(--bem-primary) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 4px rgba(225, 29, 72, 0.15) !important;
+}
+
+.bem-form__textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* --- 9. Alertas e Feedbacks BEM --- */
+.bem-alert {
+  padding: var(--bem-spacing-md) var(--bem-spacing-lg);
+  border-radius: var(--bem-radius-md);
+  border-left: 4px solid;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--bem-spacing-md);
+  margin-bottom: var(--bem-spacing-md);
+  box-shadow: var(--bem-shadow-sm);
+}
+
+.bem-alert--info {
+  background-color: #f0f9ff;
+  border-color: var(--bem-info);
+  color: #0c4a6e;
+}
+
+.bem-alert--success {
+  background-color: #f0fdf4;
+  border-color: var(--bem-accent);
+  color: #14532d;
+}
+
+.bem-alert--warning {
+  background-color: #fffbeb;
+  border-color: var(--bem-warning);
+  color: #78350f;
+}
+
+.bem-alert--danger {
+  background-color: #fef2f2;
+  border-color: var(--bem-danger);
+  color: #7f1d1d;
+}
+
+.bem-alert__title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  color: inherit;
+}
+
+.bem-alert__message {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: inherit;
+}
+
+/* --- 10. Hero Section & Destaques da Home --- */
+.hero-banner {
+  background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 50%, #fed7aa 100%);
+  border-radius: var(--bem-radius-lg);
+  padding: var(--bem-spacing-2xl) var(--bem-spacing-xl);
+  margin-bottom: var(--bem-spacing-2xl);
+  text-align: center;
+  border: 1px solid #fecdd3;
+  box-shadow: var(--bem-shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-banner__tag {
+  display: inline-block;
+  background-color: var(--bem-primary);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 0.35rem 1rem;
+  border-radius: var(--bem-radius-full);
+  margin-bottom: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.hero-banner__title {
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: var(--bem-text);
+  margin-bottom: 1rem;
+  letter-spacing: -1px;
+  line-height: 1.15;
+}
+
+.hero-banner__subtitle {
+  font-size: 1.15rem;
+  color: var(--bem-text-muted);
+  max-width: 680px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+.hero-banner__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.hero-banner__chips {
+  margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.hero-banner__chip-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--bem-text-muted);
+}
+
+.hero-banner__chip {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #fda4af;
+  color: var(--bem-text);
+  padding: 0.3rem 0.85rem;
+  border-radius: var(--bem-radius-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.hero-banner__chip:hover {
+  background-color: var(--bem-primary);
+  color: #ffffff;
+  border-color: var(--bem-primary);
+  transform: translateY(-2px);
+}
+
+/* Seção de Benefícios */
+.perks-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--bem-spacing-lg);
+  margin-top: var(--bem-spacing-2xl);
+  padding-top: var(--bem-spacing-xl);
+  border-top: 1px solid var(--bem-border);
+}
+
+.perk-card {
+  background-color: var(--bem-surface);
+  border: 1px solid var(--bem-border);
+  border-radius: var(--bem-radius-md);
+  padding: var(--bem-spacing-lg);
+  text-align: center;
+}
+
+.perk-card__icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.75rem;
+  display: inline-block;
+}
+
+.perk-card__title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.perk-card__desc {
+  font-size: 0.9rem;
+  color: var(--bem-text-muted);
+}
+
+/* --- 11. Página de Detalhes da Receita --- */
+.recipe-details {
+  background-color: var(--bem-surface);
+  border-radius: var(--bem-radius-lg);
+  border: 1px solid var(--bem-border);
+  box-shadow: var(--bem-shadow-md);
+  overflow: hidden;
+}
+
+.recipe-details__hero {
+  position: relative;
+  width: 100%;
+  max-height: 420px;
+  overflow: hidden;
+  background-color: #0f172a;
+}
+
+.recipe-details__image {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  display: block;
+  opacity: 0.95;
+}
+
+.recipe-details__header {
+  padding: var(--bem-spacing-xl);
+  border-bottom: 1px solid var(--bem-border);
+  background-color: #ffffff;
+}
+
+.recipe-details__title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--bem-text);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.recipe-details__meta-bar {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding: 1rem 0;
+}
+
+.recipe-details__meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--bem-text);
+}
+
+.recipe-details__body {
+  padding: var(--bem-spacing-xl);
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: var(--bem-spacing-xl);
+}
+
+@media (max-width: 860px) {
+  .recipe-details__body {
+    grid-template-columns: 1fr;
+  }
+}
+
+.recipe-ingredients {
+  background-color: var(--bem-surface-muted);
+  border-radius: var(--bem-radius-md);
+  padding: var(--bem-spacing-lg);
+  border: 1px solid var(--bem-border);
+}
+
+.recipe-ingredients__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.recipe-ingredients__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  color: var(--bem-text);
+  line-height: 1.5;
+}
+
+.recipe-ingredients__bullet {
+  color: var(--bem-primary);
+  font-weight: 700;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.recipe-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.recipe-step-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  line-height: 1.6;
+}
+
+.recipe-step-number {
+  background-color: var(--bem-primary);
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.9rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+
+.chef-tip-box {
+  background-color: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: var(--bem-radius-md);
+  padding: var(--bem-spacing-md) var(--bem-spacing-lg);
+  margin-top: var(--bem-spacing-lg);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.chef-tip-box__icon {
+  font-size: 1.5rem;
+}
+
+.chef-tip-box__text {
+  font-size: 0.9rem;
+  color: #92400e;
+  line-height: 1.5;
+}
+
+/* --- 12. Barra de Pesquisa com Sugestões (Busca) --- */
+.search-box {
+  background-color: var(--bem-surface);
+  border: 1px solid var(--bem-border);
+  border-radius: var(--bem-radius-lg);
+  padding: var(--bem-spacing-xl);
+  box-shadow: var(--bem-shadow-sm);
+  margin-bottom: var(--bem-spacing-xl);
+}
+
+.search-input-wrapper {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 600px) {
+  .search-input-wrapper {
+    flex-direction: column;
+  }
+}
+
+.search-chips {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.search-chip-btn {
+  background-color: var(--bem-surface-muted);
+  border: 1px solid var(--bem-border);
+  color: var(--bem-text);
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--bem-radius-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.search-chip-btn:hover {
+  background-color: #fee2e2;
+  border-color: #fca5a5;
+  color: var(--bem-primary);
+}
+
+/* --- 13. Rodapé (Footer) --- */
+.bem-footer {
+  background-color: #0f172a;
+  color: #94a3b8;
+  border-top: 1px solid #1e293b;
+  margin-top: auto;
+  padding: var(--bem-spacing-2xl) 0 var(--bem-spacing-xl);
+}
+
+.bem-footer__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--bem-spacing-xl);
+  margin-bottom: var(--bem-spacing-xl);
+}
+
+@media (max-width: 768px) {
+  .bem-footer__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bem-footer__brand {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+.bem-footer__brand span {
+  color: var(--bem-primary);
+}
+
+.bem-footer__text {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  max-width: 400px;
+}
+
+.bem-footer__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.bem-footer__links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.bem-footer__link {
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.bem-footer__link:hover {
+  color: #ffffff;
+}
+
+.bem-footer__bottom {
+  padding-top: var(--bem-spacing-lg);
+  border-top: 1px solid #1e293b;
+  text-align: center;
+  font-size: 0.85rem;
+}

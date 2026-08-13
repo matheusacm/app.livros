@@ -1,46 +1,33 @@
 /**
  * aiService.js
- * Módulo de integração com Inteligência Artificial para o App de Receitas.
+ * Módulo preparado para futura integração com API de Inteligência Artificial.
  * 
- * Preparado para futura implementação conforme orientação do professor.
- * Suporta integração com APIs de LLM (como Gemini, OpenAI ou endpoint próprio).
+ * Aguardando orientação do professor sobre endpoint e chave de API específicos.
  */
 
 class AIService {
-    constructor(apiKey = '', baseUrl = '') {
+    constructor(apiKey = '', endpoint = '') {
         this.apiKey = apiKey;
-        this.baseUrl = baseUrl;
+        this.endpoint = endpoint;
     }
 
     /**
-     * Sugere receitas com base em uma lista de ingredientes disponíveis.
-     * @param {string[]} ingredientes - Lista de ingredientes fornecidos pelo usuário.
-     * @returns {Promise<Object>} Resposta com a receita sugerida e modo de preparo.
+     * Preparado para integração com serviço de LLM/IA.
+     * @param {Object} dados - Parâmetros da consulta.
      */
-    async sugerirReceitaPorIngredientes(ingredientes) {
-        console.log("[AIService] Sugerindo receita para os ingredientes:", ingredientes);
-        
-        // Simulação / Estrutura base pronta para receber fetch da API real de IA
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve({
-                    sucesso: true,
-                    nome: "Receita Sugerida por IA",
-                    descricao: `Sugestão personalizada utilizando: ${ingredientes.join(", ")}`,
-                    preparo: "Misture os ingredientes em fogo médio até dourar e sirva a gosto."
-                });
-            }, 800);
-        });
-    }
+    async consultarIA(dados) {
+        if (!this.endpoint || !this.apiKey) {
+            console.info("[AIService] Módulo de IA preparado. Aguardando configuração de credenciais e orientações do professor.");
+            return null;
+        }
 
-    /**
-     * Responde dúvidas culinárias do usuário (ex: substituição de ingredientes, tempo de forno).
-     * @param {string} pergunta - Pergunta do usuário.
-     * @returns {Promise<string>} Resposta gerada pela IA.
-     */
-    async tirarDuvidaCulinaria(pergunta) {
-        console.log("[AIService] Pergunta recebida:", pergunta);
-        return `Resposta da IA para: "${pergunta}"`;
+        // Exemplo de estrutura para fetch real:
+        // const response = await fetch(this.endpoint, {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${this.apiKey}` },
+        //     body: JSON.stringify(dados)
+        // });
+        // return await response.json();
     }
 }
 

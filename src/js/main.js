@@ -1,24 +1,26 @@
 import navbar from "./componentes/navbar/navbar.js";
+import footer from "./componentes/footer.js";
 import roteador from "./rotas/rotas.js";
-navbar(roteador);
+
 const app = document.getElementById('app');
-//console.log(roteador)
-const mapaDeRotas = {}
-//console.log(mapaDeRotas)
-for(const rota of roteador){
-    mapaDeRotas[rota.url] = rota
+const mapaDeRotas = {};
+
+for (const rota of roteador) {
+    mapaDeRotas[rota.url] = rota;
 }
-// console.log(mapaDeRotas)
-// console.log(mapaDeRotas["#inicio"])
-// console.log(mapaDeRotas["#inicio"].pagina)
-// console.log(mapaDeRotas["#inicio"].pagina())
-//    && = e  || = ou
+
 let hash = window.location.hash || '#home';
+
+// Inicializa layout fixo
+navbar(roteador);
+footer();
 render();
 
 window.addEventListener("hashchange", () => {
     hash = window.location.hash || '#home';
+    navbar(roteador); // Atualiza o estado ativo no menu
     render();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
 const rota404 = {
@@ -27,12 +29,12 @@ const rota404 = {
             <section class="bem-container">
                 <div class="bem-alert bem-alert--danger">
                     <div class="bem-alert__content">
-                        <h4 class="bem-alert__title">Erro 404</h4>
-                        <p class="bem-alert__message">Página não encontrada.</p>
+                        <h4 class="bem-alert__title">Página Não Encontrada (404)</h4>
+                        <p class="bem-alert__message">A página ou receita que você procurou não existe ou foi movida.</p>
                     </div>
                 </div>
-                <div style="margin-top: 1rem;">
-                    <a href="#home" class="bem-btn bem-btn--primary">Voltar ao Início</a>
+                <div style="margin-top: 1.5rem;">
+                    <a href="#home" class="bem-btn bem-btn--primary">Voltar para a Página Inicial</a>
                 </div>
             </section>
         `;
@@ -44,20 +46,3 @@ async function render() {
     const rotaAtual = mapaDeRotas[rotaBase] || rota404;
     await rotaAtual.pagina(app);
 }
-// testes de assincronismo
-// console.log("A Primeira chamada")
-// setTimeout(()=>{
-//     console.log("A Segunda Execução ou não?")
-// })
-// console.log("A Terceira execução ou não?")
-
-// //teste sincrono
-
-// console.log("B Primeira chamada")
-// // const sincrono = ()=>{ console.log("Segunda Execução ou não?") }
-// function sincrono(){
-//     console.log("B Segunda Execução ou não?")
-// }
-// sincrono()
-// console.log("B Terceira execução ou não?")
-
