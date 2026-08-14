@@ -72,7 +72,7 @@ const receitas = [
     tempo: "50 minutos",
     porcoes: "4 porções",
     dificuldade: "Médio",
-    imagem: "https://images.unsplash.com/photo-1664478546384-d57ffe74a78c?w=600&q=80",
+    imagem: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80",
     ingredientes: [
       "1kg de batatas cozidas e amassadas",
       "2 xícaras de farinha de trigo",
@@ -217,7 +217,7 @@ const receitas = [
     tempo: "30 min (+ 2h geladeira)",
     porcoes: "4 taças",
     dificuldade: "Fácil",
-    imagem: "https://images.unsplash.com/photo-1511715282680-fbf93a50e721?w=600&q=80",
+    imagem: "https://images.unsplash.com/photo-1541783245831-57d6fb0926d3?w=600&q=80",
     ingredientes: [
       "200g de chocolate meio amargo picado",
       "1 caixa de creme de leite (200g)",
