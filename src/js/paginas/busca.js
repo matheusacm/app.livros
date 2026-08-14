@@ -198,18 +198,28 @@ async function exibirModalReceitaAPI(meal) {
         </div>
     `;
 
-    // Traduz as instruções para português
-    const instrucoesPT = await traduzirParaPortugues(meal.strInstructions);
-
-    // Coleta ingredientes da API TheMealDB
-    const ingredientes = [];
+    // Coleta ingredientes da API TheMealDB (ainda em inglês)
+    const ingredientesEN = [];
     for (let i = 1; i <= 20; i++) {
         const ing = meal[`strIngredient${i}`];
         const measure = meal[`strMeasure${i}`];
         if (ing && ing.trim()) {
-            ingredientes.push(`${measure ? measure.trim() + ' ' : ''}${ing.trim()}`);
+            ingredientesEN.push(`${measure ? measure.trim() + ' ' : ''}${ing.trim()}`);
         }
     }
+
+    // Traduz ingredientes e instruções em lote (uma única chamada à API de tradução)
+    // Une tudo com separador especial que o tradutor não toca, depois divide
+    const SEPARADOR = " ||| ";
+    const textoLote = ingredientesEN.join(SEPARADOR) + SEPARADOR + SEPARADOR + (meal.strInstructions || "");
+    const textoTraduzido = await traduzirParaPortugues(textoLote);
+
+    // Divide o resultado: ingredientes ficam antes dos dois separadores, instruções depois
+    const parteSplit = textoTraduzido.split(SEPARADOR + SEPARADOR);
+    const ingredientesPT = (parteSplit[0] || "").split(SEPARADOR).map(s => s.trim()).filter(Boolean);
+    const instrucoesPT = (parteSplit[1] || "").trim() || meal.strInstructions;
+
+    const ingredientes = ingredientesPT.length > 0 ? ingredientesPT : ingredientesEN;
 
     modalContainer.innerHTML = `
         <div style="position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 1rem; backdrop-filter: blur(4px);">
