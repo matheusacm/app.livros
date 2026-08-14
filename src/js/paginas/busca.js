@@ -125,7 +125,7 @@ async function busca(app) {
                             <button
                                 class="bem-btn bem-btn--primary bem-btn--sm bem-btn--block"
                                 data-api-id="${receita.idMeal}">
-                                Ver Instruções da API
+                                 Ver Modo de Preparo
                             </button>
                         </div>
                     </div>
@@ -136,10 +136,10 @@ async function busca(app) {
 
             // Adiciona evento para visualizar instruções da receita da API
             document.querySelectorAll("[data-api-id]").forEach((btn) => {
-                btn.addEventListener("click", () => {
+                btn.addEventListener("click", async () => {
                     const mealId = btn.dataset.apiId;
                     const meal = dados.meals.find(m => m.idMeal === mealId);
-                    if (meal) exibirModalReceitaAPI(meal);
+                    if (meal) await exibirModalReceitaAPI(meal);
                 });
             });
 
@@ -171,9 +171,35 @@ async function busca(app) {
     });
 }
 
-function exibirModalReceitaAPI(meal) {
+async function traduzirParaPortugues(texto) {
+    if (!texto) return texto;
+    try {
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=pt&dt=t&q=${encodeURIComponent(texto)}`;
+        const resposta = await fetch(url);
+        const dados = await resposta.json();
+        // A resposta é um array aninhado: dados[0] contém os blocos traduzidos
+        return dados[0].map(bloco => bloco[0]).join("");
+    } catch (e) {
+        console.warn("[Tradução] Não foi possível traduzir. Exibindo no idioma original.", e);
+        return texto; // Fallback: exibe o texto original em inglês
+    }
+}
+
+async function exibirModalReceitaAPI(meal) {
     const modalContainer = document.getElementById("modalContainer");
     if (!modalContainer) return;
+
+    // Mostra o modal com spinner enquanto traduz
+    modalContainer.innerHTML = `
+        <div style="position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 1rem; backdrop-filter: blur(4px);">
+            <div style="background: #ffffff; border-radius: var(--bem-radius-lg); padding: 3rem; text-align: center; color: var(--bem-text-muted); min-width: 260px;">
+                <p style="font-size: 1.1rem;">⏳ Traduzindo receita para o português...</p>
+            </div>
+        </div>
+    `;
+
+    // Traduz as instruções para português
+    const instrucoesPT = await traduzirParaPortugues(meal.strInstructions);
 
     // Coleta ingredientes da API TheMealDB
     const ingredientes = [];
@@ -199,13 +225,13 @@ function exibirModalReceitaAPI(meal) {
 
                 <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">${meal.strMeal}</h2>
 
-                <h3 style="font-size: 1.2rem; margin-top: 1.5rem; margin-bottom: 0.75rem;">Ingredientes</h3>
+                <h3 style="font-size: 1.2rem; margin-top: 1.5rem; margin-bottom: 0.75rem;">🛒 Ingredientes</h3>
                 <ul style="padding-left: 1.5rem; line-height: 1.8; margin-bottom: 1.5rem;">
                     ${ingredientes.map(ing => `<li>${ing}</li>`).join('')}
                 </ul>
 
-                <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">Instruções de Preparo (Inglês)</h3>
-                <p style="line-height: 1.7; white-space: pre-line; color: var(--bem-text);">${meal.strInstructions}</p>
+                <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">👩‍🍳 Modo de Preparo</h3>
+                <p style="line-height: 1.7; white-space: pre-line; color: var(--bem-text);">${instrucoesPT}</p>
 
                 <div style="margin-top: 2rem; text-align: right;">
                     <button class="bem-btn bem-btn--primary" id="btnFecharModalBaixo">Fechar</button>
