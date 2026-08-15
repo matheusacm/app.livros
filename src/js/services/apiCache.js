@@ -5,7 +5,7 @@ const storage  = memoriaPermanente;
 
 async function buscarNoCache(url, dados= '', forma=''){
     const formataURL = `${url}${dados}${forma}`
-    if(storage.existe(formataURL)){}{
+    if (storage.existe(formataURL)) {
         console.time(`[CACHE] TEMPO PARA: ${dados || 'página incial' }`)
         const resultadoEmCache = storage.buscarDadosLocal(formataURL)
         console.timeEnd(`[CACHE] TEMPO PARA: ${dados || 'página incial' }`)
@@ -24,4 +24,4 @@ async function buscarNoCache(url, dados= '', forma=''){
     }
 };
 
-export default buscarNoMundo;
+export default buscarNoCache;
