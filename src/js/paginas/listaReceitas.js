@@ -23,7 +23,7 @@ function listaReceitas(app) {
                     class="bem-card__image"
                     src="${receita.imagem}"
                     alt="${receita.nome}"
-                >
+                    >
 
                 <div class="bem-card__body">
                     <h3 class="bem-card__title">${receita.nome}</h3>
@@ -35,8 +35,6 @@ function listaReceitas(app) {
                     <p>${receita.categoria}</p>
                     <p>${receita.tempo}</p>
                 </div>
-
-            </div>
         `;
     });
 
